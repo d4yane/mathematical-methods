@@ -1,0 +1,115 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNx+JxpmnG/lAFs2I14s7cK",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/d4yane/mathematical-methods/blob/main/Atividade%5B17%5D%20-%20Exerc%C3%ADcio%2010%2C%20pg.%20263%2C%20do%20livro%20do%20Strang.\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "<center>\n",
+        "\n",
+        "\n",
+        "## Atividade 17 - Métodos Matemáticos"
+      ],
+      "metadata": {
+        "id": "3_rky0LqSdkw"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Represente a matriz de transição 3x3 para um curso de Química que é ministrado em dois turnos se a cada semana $1/4$ das pessoas do turno 'A' e $1/3$ das no turno 'B' desistem do curso e $1/6$ de cada turno se transfere para o outro."
+      ],
+      "metadata": {
+        "id": "-sK-e9iHRiCc"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Etu9083oRaqn",
+        "outputId": "6f1c35f6-9988-4caa-ac47-5558aa2a77c8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Matriz de Transição:\n",
+            "[[0.58 0.17 0.25]\n",
+            " [0.17 0.5  0.33]\n",
+            " [0.   0.   1.  ]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "import numpy as np\n",
+        "\n",
+        "def calcular_probabilidades_restantes(P_A_B, P_A_D, P_B_A, P_B_D):\n",
+        "    P_A_A = 1 - P_A_B - P_A_D\n",
+        "    P_B_B = 1 - P_B_A - P_B_D\n",
+        "    return P_A_A, P_B_B\n",
+        "\n",
+        "def montar_matriz_transicao(P_A_A, P_A_B, P_A_D, P_B_A, P_B_B, P_B_D):\n",
+        "    P_D_A, P_D_B, P_D_D = 0, 0, 1\n",
+        "    P = np.array([\n",
+        "        [P_A_A, P_A_B, P_A_D],\n",
+        "        [P_B_A, P_B_B, P_B_D],\n",
+        "        [P_D_A, P_D_B, P_D_D]\n",
+        "    ])\n",
+        "    return P\n",
+        "\n",
+        "def imprimir_matriz(P):\n",
+        "    print(\"Matriz de Transição:\")\n",
+        "    print(np.round(P, 2))\n",
+        "\n",
+        "def main():\n",
+        "    #probabilidades fornecidas\n",
+        "    P_A_D = 1/4  #probabilidade de desistir a partir do Turno A\n",
+        "    P_B_D = 1/3  #probabilidade de desistir a partir do Turno B\n",
+        "    P_A_B = 1/6  #probabilidade de ir de A para B\n",
+        "    P_B_A = 1/6  #probabilidade de ir de B para A\n",
+        "\n",
+        "    #calculando as probabilidades restantes\n",
+        "    P_A_A, P_B_B = calcular_probabilidades_restantes(P_A_B, P_A_D, P_B_A, P_B_D)\n",
+        "\n",
+        "    #montando a matriz de transição\n",
+        "    P = montar_matriz_transicao(P_A_A, P_A_B, P_A_D, P_B_A, P_B_B, P_B_D)\n",
+        "\n",
+        "    #imprimindo a matriz de transição\n",
+        "    imprimir_matriz(P)\n",
+        "\n",
+        "if __name__ == \"__main__\":\n",
+        "    main()\n"
+      ]
+    }
+  ]
+}
